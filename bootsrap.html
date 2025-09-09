@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini E-Commerce Plush</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .btn-bluegray {
+      background-color: #607d8b;  
+      color: white;
+    }
+    .btn-bluegray:hover {
+      background-color: #546e7a; 
+      color: white;
+    }
+  </style>
+
+  <style>
+    .btn-bluegray {
+      background-color: #607d8b;  
+      color: white;
+    }
+    .btn-bluegray:hover {
+      background-color: #546e7a; 
+      color: white;
+    }
+
+   
+    .card-img-top {
+  height: 350px;       /* kasih lebih tinggi biar gambar ga kepotong parah */
+  object-fit: cover;   /* tetap rapi, isi penuh */
+}
+
+  </style>
+</head>
+<body class="bg-light">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#">Amajing Store</a>
+      <form class="d-flex ms-auto">
+        <input type="search" id="search" class="form-control me-2" placeholder="Cari plush...">
+      </form>
+      <button class="btn btn-primary ms-3" id="cartBtn">
+        🛒 Keranjang (<span id="cartCount">0</span>)
+      </button>
+    </div>
+  </nav>
+
+  <div class="container py-5">
+    <div class="row" id="product-list"></div>
+  </div>
+
+  <script>
+   var items = [
+  ['001', 'Aventurine Plush', 60000, 'Boneka Plush lucu edisi 1', 'photo/plush1.jpg'], 
+  ['002', 'Jiaoqiu Plush', 75000, 'Boneka Plush imut edisi 2', 'photo/plush2.jpg'],
+  ['003', 'Sunday Plush', 80000, 'Boneka Plush menggemaskan edisi 3', 'photo/plush3.jpg'],
+  ['004', 'Childe Sayangku Plush', 900000, 'Boneka Plush limited edition 4', 'photo/plush4.jpg'],
+  ['005', 'Jing Yuan Plush', 85000, 'Boneka Plush gagah edisi 5', 'photo/jingyuan.jpg'],
+  ['006', 'Cipher Plush', 78000, 'Boneka Plush misterius edisi 6', 'photo/cipher.jpg'],
+  ['007', 'The Herta Plush', 72000, 'Boneka Plush imut edisi 7', 'photo/theherta.jpg'],
+  ['008', 'Robin Plush', 83000, 'Boneka Plush elegan edisi 8', 'photo/robin.jpg'],
+  ['009', 'Sparkle Plush', 95000, 'Boneka Plush ceria edisi 9', 'photo/sparkle.jpg'],
+  ['010', 'Firefly Plush', 99000, 'Boneka Plush spesial edisi 10', 'photo/firefly.jpg']
+];
+
+    var cart = [];
+    var productList = document.getElementById("product-list");
+    var searchInput = document.getElementById("search");
+    var cartCount = document.getElementById("cartCount");
+
+    function renderProducts(filter = "") {
+      productList.innerHTML = "";
+      items.forEach(function(item) {
+        if (item[1].toLowerCase().includes(filter.toLowerCase())) {
+          var col = document.createElement("div");
+          col.className = "col-md-3 mb-4";
+
+          col.innerHTML = `
+            <div class="card h-100 shadow-sm">
+              <img src="${item[4]}" class="card-img-top" alt="${item[1]}">
+              <div class="card-body">
+                <h5 class="card-title">${item[1]}</h5>
+                <p class="card-text">${item[3]}</p>
+                <p class="text-primary fw-bold">Rp ${item[2].toLocaleString()}</p>
+                <button class="btn btn-bluegray w-100 addCartBtn">+ Tambah ke Keranjang</button>
+              </div>
+            </div>
+          `;
+
+          col.querySelector(".addCartBtn").addEventListener("click", function() {
+            cart.push(item); 
+            cartCount.textContent = cart.length; 
+            alert(item[1] + " berhasil ditambahkan ke keranjang!");
+          });
+
+          productList.appendChild(col);
+        }
+      });
+    }
+
+    renderProducts();
+
+    searchInput.addEventListener("input", function() {
+      renderProducts(this.value);
+    });
+  </script>
+
+</body>
+</html>
